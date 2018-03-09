@@ -1,4 +1,4 @@
-package com.bambz.NewsBrowserrest.news.domain;
+package com.bambz.NewsBrowser.news.domain;
 
 /**
  * Created by bambo on 06.03.2018.
@@ -13,7 +13,7 @@ enum Category {
     SPORTS,
     TECHNOLOGY;
 
-    static String getLabelFromStr(String str) {
+    static String getValidName(String str) {
         try {
             return Category.valueOf(str.toUpperCase()).name().toLowerCase();
         } catch (IllegalArgumentException ex) {

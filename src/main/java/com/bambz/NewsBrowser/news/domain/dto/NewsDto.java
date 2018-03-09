@@ -1,4 +1,4 @@
-package com.bambz.NewsBrowserrest.news.domain.dto;
+package com.bambz.NewsBrowser.news.domain.dto;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;

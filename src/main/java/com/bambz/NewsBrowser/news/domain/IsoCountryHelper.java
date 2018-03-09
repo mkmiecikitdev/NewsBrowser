@@ -1,4 +1,4 @@
-package com.bambz.NewsBrowserrest.news.domain;
+package com.bambz.NewsBrowser.news.domain;
 
 import org.springframework.util.StringUtils;
 

@@ -1,4 +1,4 @@
-package com.bambz.NewsBrowserrest.news.domain
+package com.bambz.NewsBrowser.news.domain
 
 import spock.lang.Specification
 
@@ -14,13 +14,13 @@ class NewsSpec extends Specification {
         newsFacade = new NewsConfiguration().newsFacade()
     }
 
-    def "'show' method should return not null news which contains country and category for correct lang and category" () {
+    def "'show' method should return not null news which contains country and category for correct lang and category and correct article" () {
 
         given: "Client want to get technological news from Poland"
             def lang = "pl"
             def category = "technology"
 
-        when: "Client perform 'show' method for above params"
+        when: "Client perform 'getNews' method for above params"
             def newsDto = newsFacade.show(lang, category)
 
         then: "Base should have starting values"
@@ -28,6 +28,7 @@ class NewsSpec extends Specification {
             newsDto.category == "technology"
             newsDto.country == "Poland"
             newsDto.articles != null
+            newsDto.articles.size() == 1
     }
 
     def "'show' method should return not null news which doesn't contain country and category for incorrect lang and category" () {
@@ -36,7 +37,7 @@ class NewsSpec extends Specification {
             def lang = "xx"
             def category = "badcategory"
 
-        when: "Client perform 'show' method for above params"
+        when: "Client perform 'getNews' method for above params"
             def newsDto = newsFacade.show(lang, category)
 
         then: "Base should have starting values"
@@ -46,7 +47,4 @@ class NewsSpec extends Specification {
             newsDto.articles != null
             newsDto.articles.size() == 0
     }
-
-
-
 }
