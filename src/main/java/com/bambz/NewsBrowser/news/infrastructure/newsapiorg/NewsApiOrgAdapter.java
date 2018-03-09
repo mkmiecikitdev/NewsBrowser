@@ -1,7 +1,8 @@
 package com.bambz.NewsBrowser.news.infrastructure.newsapiorg;
 
-import com.bambz.NewsBrowser.news.domain.ArticleBrowser;
+import com.bambz.NewsBrowser.news.domain.NewsBrowser;
 import com.bambz.NewsBrowser.news.domain.dto.ArticleDto;
+import com.bambz.NewsBrowser.news.domain.dto.NewsDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOArticleDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOResponseDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOSourceDto;
@@ -20,17 +21,25 @@ import static java.util.Optional.ofNullable;
  */
 
 @AllArgsConstructor
-class NewsApiOrgAdapter implements ArticleBrowser {
+class NewsApiOrgAdapter implements NewsBrowser {
 
     private static final String UNKNOWN = "Unknown";
     private static final String PLACEHOLDER = "https://image.ibb.co/cbDsf7/placeholder4.png";
 
     private final NewsApiOrgClient client;
+    private final NewsApiOrgCategoryHelper categoryHelper;
+    private final NewsApiOrgLangHelper langHelper;
 
     @Override
-    public List<ArticleDto> getArticles(String lang, String category) {
+    public NewsDto getNews(String lang, String category) {
         NAOResponseDto response = client.response(lang, category);
-        return response.getArticles().stream().map(this::convert).collect(Collectors.toList());
+        List<ArticleDto> articles = response.getArticles().stream().map(this::convert).collect(Collectors.toList());
+
+        return NewsDto.builder()
+                .articles(articles)
+                .country(langHelper.countryFromIsoLang(lang))
+                .category(categoryHelper.getCategoryIfAccetable(category))
+                .build();
     }
 
     private ArticleDto convert(NAOArticleDto naoArticleDto) {

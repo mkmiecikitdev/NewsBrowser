@@ -11,17 +11,14 @@ import org.springframework.context.annotation.Configuration;
 class NewsConfiguration {
 
     @Bean
-    NewsFacade newsFacade(ArticleBrowser articleBrowser) {
-        return new NewsFacade(isoCountryHelper(), articleBrowser);
+    NewsFacade newsFacade(NewsBrowser newsBrowser) {
+        return new NewsFacade(newsBrowser);
     }
 
     NewsFacade newsFacade() {
-        ArticleBrowser articleBrowser = new InMemoryArticleBrowser();
-        return new NewsFacade(isoCountryHelper(), articleBrowser);
+        NewsBrowser newsBrowser = new InMemoryNewsBrowser();
+        return new NewsFacade(newsBrowser);
     }
 
-    private IsoCountryHelper isoCountryHelper() {
-        return new IsoCountryHelper();
-    }
 
 }

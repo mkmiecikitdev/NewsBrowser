@@ -1,4 +1,4 @@
-package com.bambz.NewsBrowser.news.domain;
+package com.bambz.NewsBrowser.news.infrastructure.newsapiorg;
 
 import org.springframework.util.StringUtils;
 
@@ -7,7 +7,7 @@ import java.util.Locale;
 /**
  * Created by bambo on 06.03.2018.
  */
-class IsoCountryHelper {
+class NewsApiOrgLangHelper {
 
     String countryFromIsoLang(String lang) {
         Locale l = new Locale("", lang);

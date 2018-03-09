@@ -1,16 +1,16 @@
-package com.bambz.NewsBrowser.news.domain
+package com.bambz.NewsBrowser.news.infrastructure.newsapiorg
 
 import spock.lang.Specification
 
 /**
  * Created by bambo on 06.03.2018.
  */
-class IsoCountryHelperTest extends Specification {
+class NewsApiOrgLangHelperTest extends Specification {
 
     def "IsoCountryHelper should provide correct country english name from ISO lang" () {
 
         given:
-            IsoCountryHelper helper = new IsoCountryHelper()
+            NewsApiOrgLangHelper helper = new NewsApiOrgLangHelper()
 
         when: "Client want to get country english name from ISO lang"
             def result = helper.countryFromIsoLang(lang)

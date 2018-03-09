@@ -1,6 +1,6 @@
 package com.bambz.NewsBrowser.news.infrastructure.newsapiorg;
 
-import com.bambz.NewsBrowser.news.domain.ArticleBrowser;
+import com.bambz.NewsBrowser.news.domain.NewsBrowser;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
@@ -30,16 +30,13 @@ class NewsApiOrgConfiguration {
     private String appIdValue;
 
     @Bean
-    ArticleBrowser articleBrowser(ObjectMapper objectMapper) {
-        return new NewsApiOrgAdapter(newsApiOrgClient(objectMapper));
+    NewsBrowser articleBrowser(ObjectMapper objectMapper) {
+        return new NewsApiOrgAdapter(newsApiOrgClient(objectMapper), newsApiOrgCategoryHelper(), newsApiOrgLangHelper());
     }
+
 
     private NewsApiOrgClient newsApiOrgClient(ObjectMapper objectMapper) {
         return new NewsApiOrgClient(restTemplate(objectMapper), url, httpHeaders());
-    }
-
-    private RestTemplate restTemplate() {
-        return new RestTemplate();
     }
 
     private RestTemplate restTemplate(ObjectMapper objectMapper) {
@@ -56,6 +53,14 @@ class NewsApiOrgConfiguration {
         HttpHeaders headers = new HttpHeaders();
         headers.set(appIdKey, appIdValue);
         return headers;
+    }
+
+    private NewsApiOrgCategoryHelper newsApiOrgCategoryHelper() {
+        return new NewsApiOrgCategoryHelper();
+    }
+
+    private NewsApiOrgLangHelper newsApiOrgLangHelper() {
+        return new NewsApiOrgLangHelper();
     }
 
 }
