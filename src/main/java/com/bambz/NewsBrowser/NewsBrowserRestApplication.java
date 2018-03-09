@@ -16,26 +16,26 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @EnableSwagger2
 public class NewsBrowserRestApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NewsBrowserRestApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(NewsBrowserRestApplication.class, args);
+    }
 
-	@Bean
-	@Primary
-	public ObjectMapper serializingObjectMapper() {
-		ObjectMapper objectMapper = new ObjectMapper();
-		JavaTimeModule javaTimeModule = new JavaTimeModule();
-		objectMapper.registerModule(javaTimeModule);
-		return objectMapper;
-	}
+    @Bean
+    @Primary
+    ObjectMapper serializingObjectMapper() {
+        ObjectMapper objectMapper = new ObjectMapper();
+        JavaTimeModule javaTimeModule = new JavaTimeModule();
+        objectMapper.registerModule(javaTimeModule);
+        return objectMapper;
+    }
 
-	@Bean
-	public Docket api() {
-		return new Docket(DocumentationType.SWAGGER_2)
-				.select()
-				.apis(RequestHandlerSelectors.any())
-				.paths(PathSelectors.any())
-				.build();
-	}
+    @Bean
+    Docket api() {
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.any())
+                .paths(PathSelectors.any())
+                .build();
+    }
 
 }
