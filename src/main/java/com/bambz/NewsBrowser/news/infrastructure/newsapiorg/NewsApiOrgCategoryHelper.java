@@ -13,7 +13,7 @@ class NewsApiOrgCategoryHelper {
             Arrays.asList("business", "entertainment", "general", "health", "science", "sports", "technology")
     );
 
-    String getCategoryIfAccetable(String category) {
+    String getCategoryIfAcceptable(String category) {
         return ACCEPTABLE_CATEGORIES.contains(category) ? category : null;
     }
 

@@ -1,6 +1,7 @@
 package com.bambz.NewsBrowser.news.domain;
 
 import com.bambz.NewsBrowser.news.domain.dto.NewsDto;
+import com.bambz.NewsBrowser.news.domain.dto.SearchCriteriaDto;
 
 
 /**
@@ -8,6 +9,6 @@ import com.bambz.NewsBrowser.news.domain.dto.NewsDto;
  */
 public interface NewsBrowser {
 
-    NewsDto getNews(String lang, String category);
+    NewsDto getNews(String lang, String category, SearchCriteriaDto searchCriteriaDto);
 
 }

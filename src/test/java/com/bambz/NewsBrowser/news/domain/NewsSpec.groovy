@@ -21,7 +21,7 @@ class NewsSpec extends Specification {
             def category = "technology"
 
         when: "Client perform 'getNews' method for above params"
-            def newsDto = newsFacade.show(lang, category)
+            def newsDto = newsFacade.show(lang, category, searchCritecriaDto)
 
         then: "Base should have starting values"
             newsDto != null
@@ -38,7 +38,7 @@ class NewsSpec extends Specification {
             def category = "badcategory"
 
         when: "Client perform 'getNews' method for above params"
-            def newsDto = newsFacade.show(lang, category)
+            def newsDto = newsFacade.show(lang, category, searchCritecriaDto)
 
         then: "Base should have starting values"
             newsDto != null

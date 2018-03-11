@@ -3,6 +3,7 @@ package com.bambz.NewsBrowser.news.infrastructure.newsapiorg;
 import com.bambz.NewsBrowser.news.domain.NewsBrowser;
 import com.bambz.NewsBrowser.news.domain.dto.ArticleDto;
 import com.bambz.NewsBrowser.news.domain.dto.NewsDto;
+import com.bambz.NewsBrowser.news.domain.dto.SearchCriteriaDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOArticleDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOResponseDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOSourceDto;
@@ -31,14 +32,14 @@ class NewsApiOrgAdapter implements NewsBrowser {
     private final NewsApiOrgLangHelper langHelper;
 
     @Override
-    public NewsDto getNews(String lang, String category) {
-        NAOResponseDto response = client.response(lang, category);
+    public NewsDto getNews(String lang, String category, SearchCriteriaDto searchCriteriaDto) {
+        NAOResponseDto response = client.response(lang, category, searchCriteriaDto);
         List<ArticleDto> articles = response.getArticles().stream().map(this::convert).collect(Collectors.toList());
 
         return NewsDto.builder()
                 .articles(articles)
                 .country(langHelper.countryFromIsoLang(lang))
-                .category(categoryHelper.getCategoryIfAccetable(category))
+                .category(categoryHelper.getCategoryIfAcceptable(category))
                 .build();
     }
 

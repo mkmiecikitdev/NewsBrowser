@@ -1,11 +1,13 @@
 package com.bambz.NewsBrowser.news.infrastructure.newsapiorg;
 
 
+import com.bambz.NewsBrowser.news.domain.dto.SearchCriteriaDto;
 import com.bambz.NewsBrowser.news.infrastructure.newsapiorg.dto.NAOResponseDto;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
+import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -23,9 +25,9 @@ class NewsApiOrgClient {
     private final HttpHeaders httpHeaders;
 
 
-    NAOResponseDto response(String lang, String category) {
+    NAOResponseDto response(String lang, String category, SearchCriteriaDto searchCriteriaDto) {
 
-        UriComponentsBuilder builder = getBuilder(lang, category);
+        UriComponentsBuilder builder = getBuilder(lang, category, searchCriteriaDto);
 
         HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
 
@@ -41,13 +43,24 @@ class NewsApiOrgClient {
         return response.getBody();
     }
 
-    private UriComponentsBuilder getBuilder(String lang, String category) {
+    private UriComponentsBuilder getBuilder(String lang, String category, SearchCriteriaDto searchCriteriaDto) {
         String COUNTRY_PARAM_KEY = "country";
         String CATEGORY_PARAM_KEY = "category";
+        String SEARCH_PARAM_KEY = "q";
+        String PAGE_PARAM_NAME = "page";
+        String PAGE_SIZE_PARAM_NAME = "pageSize";
 
-        return UriComponentsBuilder.fromHttpUrl(baseUrl)
+        UriComponentsBuilder builder = UriComponentsBuilder.fromHttpUrl(baseUrl)
                 .queryParam(COUNTRY_PARAM_KEY, lang)
-                .queryParam(CATEGORY_PARAM_KEY, category);
+                .queryParam(CATEGORY_PARAM_KEY, category)
+                .queryParam(PAGE_PARAM_NAME, searchCriteriaDto.getPage())
+                .queryParam(PAGE_SIZE_PARAM_NAME, searchCriteriaDto.getPageSize());
+
+        if(!StringUtils.isEmpty(searchCriteriaDto.getQ())) {
+            builder.queryParam(SEARCH_PARAM_KEY, searchCriteriaDto.getQ());
+        }
+
+        return builder;
     }
 
 }

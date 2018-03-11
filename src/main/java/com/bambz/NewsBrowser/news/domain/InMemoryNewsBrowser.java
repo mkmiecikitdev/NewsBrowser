@@ -2,6 +2,7 @@ package com.bambz.NewsBrowser.news.domain;
 
 import com.bambz.NewsBrowser.news.domain.dto.ArticleDto;
 import com.bambz.NewsBrowser.news.domain.dto.NewsDto;
+import com.bambz.NewsBrowser.news.domain.dto.SearchCriteriaDto;
 
 import java.util.Collections;
 import java.util.List;
@@ -12,7 +13,7 @@ import java.util.List;
 class InMemoryNewsBrowser implements NewsBrowser {
 
     @Override
-    public NewsDto getNews(String lang, String category) {
+    public NewsDto getNews(String lang, String category, SearchCriteriaDto searchCriteriaDto) {
         List<ArticleDto> articles = Collections.emptyList();
         String country = null;
         String cat = null;
