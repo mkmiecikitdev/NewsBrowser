@@ -32,8 +32,6 @@ class NewsApiOrgClient {
         HttpEntity<?> entity = new HttpEntity<>(httpHeaders);
 
         URI uri = builder.build().encode().toUri();
-        System.err.println(uri);
-
         HttpEntity<NAOResponseDto> response = restTemplate.exchange(
                 uri,
                 HttpMethod.GET,
