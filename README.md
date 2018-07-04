@@ -1,5 +1,7 @@
 # NewsBrowser
 
+It's recruitment project ...
+
 1. run 'git clone https://github.com/skax/NewsBrowser.git' in terminal to download project
 2. go to folder with project (NewsBrowser)
 3. run './mvnw clean package'
